@@ -40,5 +40,38 @@ class Handler(FileSystemEventHandler):
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="Handbrake watcher for automated video converting")
+
+    parser.add_argument("-z", "--preset", help="""Select preset by name (case-sensitive)
+                           Enclose names containing spaces in double quotation
+                           marks. (By default set to 'iPhone & iPod Touch')""")
+    parser.add_argument("-i", "--input",
+                        help="Set input file or device ('source')", required=True)
+    parser.add_argument("-o", "--output", help="<filename> Set destination file name", required=True)
+    parser.add_argument("-e", "--encoder", help="""<string>  Select video encoder:
+                               x264
+                               x265
+                               mpeg4
+                               mpeg2
+                               VP8
+                               VP9
+                               theora
+                               By default set to x264""")
+    parser.add_argument("-r", "--rate", help="""<float>      Set video framerate
+                           (5/10/12/15/20/23.976/24/25/29.97/
+                           30/48/50/59.94/60/72/75/90/100/120
+                           or a number between 1 and 1000).
+                           Be aware that not specifying a framerate lets
+                           HandBrake preserve a source's time stamps,
+                           potentially creating variable framerate video""")
+    parser.add_argument("-q", "--quality", help="<float>   Set video quality (e.g. 22.0)")
+    parser.add_argument("-a", "--audio", help="""<string>    Select audio track(s), separated by commas
+                           ('none' for no audio, '1,2,3' for multiple
+                           tracks, default: first one).
+                           Multiple output tracks can be used for one input. By default set to 'none'""")
+
+    args = parser.parse_args()
+
+    #do something with args
     w = Watcher()
     w.run()
